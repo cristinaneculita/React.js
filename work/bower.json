@@ -1,0 +1,22 @@
+{
+  "name": "React.js",
+  "authors": [
+    "c.neculita <c.neculita@levi9.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.6",
+    "skeleton": "~2.0.4"
+  }
+}
