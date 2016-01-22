@@ -1,15 +1,15 @@
 var dispatcher = require('./../dispatcher.js');
+var helper = require ('./../helpers/RestHelper.js');
+
+
 function GroceryItemStore(){
-    var items = [{ 
-    name:"Ice Cream"
-},{
-    name:"Waffles"
-},{
-    name:"Candy",
-    purchased: true
-},{
-    name:"Snikers"
-}];
+    var items = [];
+    helper.get("api/items")
+    .then(function(data){
+        items= data;
+        triggerListeners();
+    })
+
     var listeners =[];
     
     function getItems(){
@@ -17,8 +17,10 @@ function GroceryItemStore(){
     }
     
     function addGroceryItem(item){
+        
         items.push(item);
         triggerListeners();
+        helper.post("api/items", item);
         
     }
     function deleteGroceryItem(item){
@@ -27,6 +29,9 @@ function GroceryItemStore(){
       });
       items.splice(index, 1);
       triggerListeners();
+      
+      helper.del('api/items/'+item._id);
+      
     }
     function setGroceryItemBought(item, isBought){
       var index = items.findIndex(function(_item){
@@ -34,6 +39,7 @@ function GroceryItemStore(){
       });
       items[index].purchased = isBought || false;
       triggerListeners();
+      helper.patch('api/items/'+item._id, item);
     }
     
     function onChange(listener){
